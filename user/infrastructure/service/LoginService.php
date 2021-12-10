@@ -13,8 +13,9 @@ class LoginService extends LoginAbstractService
 
     public function login($email, $password)
     {
-        $sql = "SELECT * FROM users WHERE email = $email AND password = $password";
-        $user = $this->db->query($sql)->fetch();
+        $sql = "SELECT * FROM mstr_user WHERE email = $email AND password = $password";
+        echo $sql;
+        $user = $this->db->query($sql);
         $data = [];
         foreach ($user as $value) {
             array_push($data, $value);

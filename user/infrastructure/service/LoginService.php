@@ -8,14 +8,13 @@ class LoginService extends LoginAbstractService
 
     public function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;dbname=weather', 'root', 'root');
+        $this->db = new PDO('mysql:host=localhost;dbname=weather', 'root', '');
     }
 
     public function login($email, $password)
     {
-        $sql = "SELECT * FROM mstr_user WHERE email = $email AND password = $password";
-        echo $sql;
-        $user = $this->db->query($sql);
+        $sql = "SELECT * FROM mstr_user WHERE email ='$email' AND password = '$password'";
+        $user = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         $data = [];
         foreach ($user as $value) {
             array_push($data, $value);

@@ -1,17 +1,22 @@
 <?php
 
-require_once './user/infrastructure/service/LoginAbstractService.php';
+namespace weather\api\persistence;
 
-class LoginService extends LoginAbstractService
+require('./user/infrastructure/repository/port/findUserPort.php');
+
+use weather\api\persistence\FindUserPersistence;
+use PDO;
+
+class FindUserRepository implements FindUserPersistence
 {
     private $db;
 
     public function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;dbname=weather', 'root', '');
+        $this->db = new PDO('mysql:host=localhost;dbname=weather', 'root', 'root');
     }
 
-    public function login($email, $password)
+    public function findUser($email, $password)
     {
         $sql = "SELECT * FROM mstr_user WHERE email ='$email' AND password = '$password'";
         $user = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);

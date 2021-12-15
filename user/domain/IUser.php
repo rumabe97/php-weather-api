@@ -1,5 +1,9 @@
-<?php 
-class User{
+<?php
+
+namespace weather\api\persistence;
+
+class User
+{
     private $id;
     private $name;
     private $email;
@@ -7,11 +11,19 @@ class User{
     private $role;
     private $surname;
 
-    
-
+    //constructor
+    public function __construct($value)
+    {
+        $this->id = $value['id'];
+        $this->name = $value['name'];
+        $this->email = $value['email'];
+        $this->password = $value['password'];
+        $this->role = $value['rol'];
+        $this->surname = $value['surname'];
+    }
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -21,7 +33,7 @@ class User{
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -31,7 +43,7 @@ class User{
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -41,7 +53,7 @@ class User{
      * Set the value of name
      *
      * @return  self
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -51,7 +63,7 @@ class User{
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -61,7 +73,7 @@ class User{
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -71,7 +83,7 @@ class User{
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -81,7 +93,7 @@ class User{
      * Set the value of password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -91,7 +103,7 @@ class User{
 
     /**
      * Get the value of role
-     */ 
+     */
     public function getRole()
     {
         return $this->role;
@@ -101,7 +113,7 @@ class User{
      * Set the value of role
      *
      * @return  self
-     */ 
+     */
     public function setRole($role)
     {
         $this->role = $role;
@@ -111,7 +123,7 @@ class User{
 
     /**
      * Get the value of surname
-     */ 
+     */
     public function getSurname()
     {
         return $this->surname;
@@ -121,7 +133,7 @@ class User{
      * Set the value of surname
      *
      * @return  self
-     */ 
+     */
     public function setSurname($surname)
     {
         $this->surname = $surname;

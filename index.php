@@ -20,11 +20,10 @@ handleRequest($path, $params);
 
 function handleRequest($path, $params)
 {
-    $route = explode('/', $path);
-    $serviceClass = ROUTES['/' . $route[1]];
-    $service = new $serviceClass();
+    $controllerClass = ROUTES[$path];
+    $controller = new $controllerClass();
     if ($path === '/login') {
         $login = new findUserController();
-        return $login->findUser($params['email'], $params['password'], $service);
+        return $login->findUser($params['email'], $params['password'], $controller);
     }
 }

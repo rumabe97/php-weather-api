@@ -20,13 +20,11 @@ class FindUserRepository implements FindUserPersistence
     {
         $sql = "SELECT * FROM mstr_user WHERE email ='$email' AND password = '$password'";
         $user = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-        $data = [];
-        foreach ($user as $value) {
-            array_push($data, $value);
-        }
-        $array["user"] = $data;
 
-        echo json_encode($array);
-        return null;
+        foreach ($user as $value) {
+            $u = new User($value);
+            echo json_encode($u->expose());
+            return;
+        }
     }
 }

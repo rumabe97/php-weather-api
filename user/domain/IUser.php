@@ -14,13 +14,19 @@ class User
     //constructor
     public function __construct($value)
     {
-        $this->id = $value['id'];
+        $this->id = $value['id'] ?? null;
         $this->name = $value['name'];
         $this->email = $value['email'];
         $this->password = $value['password'];
         $this->role = $value['rol'];
         $this->surname = $value['surname'];
     }
+
+    public function expose()
+    {
+        return get_object_vars($this);
+    }
+
     /**
      * Get the value of id
      */

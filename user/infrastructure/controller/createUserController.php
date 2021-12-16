@@ -2,21 +2,21 @@
 
 namespace weather\api\persistence;
 
-require('./user/infrastructure/repository/createUserRepository.php');
+require('./user/application//createUserUseCase.php');
 
-use weather\api\persistence\CreateUserRepository;
+use weather\api\persistence\CreateUserUseCase;
 
 class CreateUserController
 {
-    private $createUserPersistence;
+    private $createUserUseCase;
 
     function __construct()
     {
-        $this->createUserPersistence = new CreateUserRepository();
+        $this->createUserUseCase = new CreateUserUseCase();
     }
 
     public function createUser($user)
     {
-        return $this->createUserPersistence->createUser($user);
+        return $this->createUserUseCase->createUser($user);
     }
 }

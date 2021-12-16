@@ -25,7 +25,7 @@ class CreateUserUseCase
             $input = new InputUserDTO($user->expose());
             return $this->findUserPersistence->findUser($input);
         } else {
-            return false;
+            throw new \Exception('User already exists');
         }
     }
 }

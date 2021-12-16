@@ -2,7 +2,7 @@
 
 namespace weather\api\persistence;
 
-require('./user/application//createUserUseCase.php');
+require('./user/application/createUserUseCase.php');
 
 use weather\api\persistence\CreateUserUseCase;
 

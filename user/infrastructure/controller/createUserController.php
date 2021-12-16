@@ -17,6 +17,7 @@ class CreateUserController
 
     public function createUser($user)
     {
-        return $this->createUserUseCase->createUser($user);
+        $userClass = $user->toUser();
+        return $this->createUserUseCase->createUser($userClass);
     }
 }

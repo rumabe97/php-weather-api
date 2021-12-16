@@ -1,6 +1,6 @@
 <?php
 
-require('./user/domain/IUser.php');
+require('./user/infrastructure/controller/dto/InputUserDTO.php');
 require('./user/infrastructure/controller/findUserController.php');
 
 use  weather\api\persistence\FindUserController as findUserController;
@@ -8,7 +8,7 @@ use  weather\api\persistence\FindUserController as findUserController;
 require('./user/infrastructure/controller/createUserController.php');
 
 use  weather\api\persistence\CreateUserController as createUserController;
-use weather\api\persistence\User;
+use weather\api\persistence\InputUserDTO;
 
 define("BASE_URL", "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
 define("HOME", $_SERVER["SCRIPT_NAME"]);
@@ -29,10 +29,11 @@ function handleRequest($path, $params)
     $controllerClass = ROUTES[$path];
     $controller = new $controllerClass();
     if ($path === '/login') {
-        return $controller->findUser($params['email'], $params['password'], $controller);
+        $user = new InputUserDTO($params);
+        return $controller->findUser($user);
     }
     if ($path === '/createUser') {
-        $user = new User($params);
+        $user = new InputUserDTO($params);
         return $controller->createUser($user);
     }
 }

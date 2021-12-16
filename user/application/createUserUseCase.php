@@ -22,7 +22,8 @@ class CreateUserUseCase
         $state = $this->createUserPersistence->createUser($user);
 
         if ($state) {
-            return $this->findUserPersistence->findUser($user->getEmail(), $user->getPassword());
+            $input = new InputUserDTO($user->expose());
+            return $this->findUserPersistence->findUser($input);
         } else {
             return false;
         }

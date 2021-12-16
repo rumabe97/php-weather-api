@@ -15,8 +15,9 @@ class FindUserController
         $this->findUserPersistence = new FindUserRepository();
     }
 
-    public function findUser($username, $password)
+    public function findUser($user)
     {
-        return $this->findUserPersistence->findUser($username, $password);
+        $userClass = $user->toUser();
+        return $this->findUserPersistence->findUser($userClass);
     }
 }

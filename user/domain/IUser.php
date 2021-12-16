@@ -14,12 +14,15 @@ class User
     //constructor
     public function __construct($value)
     {
-        $this->id = $value['id'] ?? null;
-        $this->name = $value['name'];
-        $this->email = $value['email'];
-        $this->password = $value['password'];
-        $this->role = $value['rol'];
-        $this->surname = $value['surname'];
+        $reflection = new \ReflectionClass($this);
+        $properties = $reflection->getProperties();
+
+        foreach ($properties as $property) {
+            $propertyName = $property->getName();
+            if (isset($value[$propertyName])) {
+                $this->$propertyName = $value[$propertyName];
+            }
+        }
     }
 
     public function expose()

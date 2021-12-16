@@ -12,7 +12,7 @@ class InputUserDTO
     private $name;
     private $email;
     private $password;
-    private $role;
+    private $rol;
     private $surname;
 
     public function __construct($value)

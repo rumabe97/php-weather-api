@@ -8,7 +8,7 @@ class User
     private $name;
     private $email;
     private $password;
-    private $role;
+    private $rol;
     private $surname;
 
     //constructor
@@ -113,9 +113,9 @@ class User
     /**
      * Get the value of role
      */
-    public function getRole()
+    public function getRol()
     {
-        return $this->role;
+        return $this->rol;
     }
 
     /**
@@ -123,9 +123,9 @@ class User
      *
      * @return  self
      */
-    public function setRole($role)
+    public function setRol($rol)
     {
-        $this->role = $role;
+        $this->role = $rol;
 
         return $this;
     }

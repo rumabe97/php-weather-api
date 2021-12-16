@@ -5,7 +5,6 @@ namespace weather\api\persistence;
 require('./user/infrastructure/repository/port/UpdateUserPort.php');
 require('./user/infrastructure/controller/dto/OutputUserDTO.php');
 
-use weather\api\persistence\OutuputUserDTO;
 use weather\api\persistence\UpdateUserPersistence;
 use PDO;
 

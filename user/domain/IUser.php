@@ -25,6 +25,17 @@ class User
         }
     }
 
+    public function updateWith($user){
+        $reflection = new \ReflectionClass($this);
+        $properties = $reflection->getProperties();
+
+        foreach ($properties as $property) {
+            $propertyName = $property->getName();
+            if (isset($user[$propertyName])) {
+                $this->$propertyName = $user[$propertyName];
+            }
+        }
+    }
     public function expose()
     {
         return get_object_vars($this);

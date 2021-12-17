@@ -38,10 +38,14 @@ class CreateCityRepository implements CreateCityPersistence
         return "insert into {$tableName}({$stringKeys}) values ({$stringValues})";
     }
 
-    private function getStringFormat($array, $iskey = false)
+    private function getStringFormat($value, $iskey = false)
     {
         $result = '';
-        foreach ($array as $value) {
+        $properties = $value->expose();
+        foreach ($properties as $key => $value) {
+            if (!isset($value)) {
+                continue;
+            }
             if (gettype($value) === 'string' && !$iskey) $value = "'" . $value . "'";
 
             $result = $result .  $value . ",";

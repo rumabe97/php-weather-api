@@ -40,6 +40,13 @@ require('./city/infrastructure/controller/FindByIdCityController.php');
 
 use  weather\api\persistence\FindByIdCityController;
 
+require('./city/infrastructure/controller/createCityController.php');
+
+use  weather\api\persistence\CreatecityController;
+
+require('./city/infrastructure/controller/findCityController.php');
+
+use  weather\api\persistence\FindCityController;
 
 define("BASE_URL", "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
 define("HOME", $_SERVER["SCRIPT_NAME"]);
@@ -51,6 +58,8 @@ const ROUTES = array(
     '/findByIdUser' => FindByIdUserController::class,
     '/deleteUser' => DeleteUserController::class,
     '/findByIdCity' => FindByIdCityController::class,
+    '/createCity' => CreateCityController::class,
+    '/findCity' => FindCityController::class,
 );
 
 $cleaned_path = str_replace(HOME, "", $_SERVER["REQUEST_URI"]);
@@ -69,7 +78,6 @@ function handleRequest($path, $params)
         $user = new InputUserDTO($params);
         $data = $controller->findUser($user);
     }
-
     if ($path === '/createUser') {
         $user = new InputUserDTO($params);
         $data =  $controller->createUser($user);
@@ -88,6 +96,9 @@ function handleRequest($path, $params)
     if ($path === '/findByIdCity') {
         $data =  $controller->findByIdCity($params['id']);
     }
-
+    if ($path === '/createCity') {
+        $city = new InputCityDTO($params);
+        $data =  $controller->createCity($city);
+    }
     echo $data;
 }

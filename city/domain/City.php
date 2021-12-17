@@ -2,7 +2,7 @@
 
 namespace weather\api\persistence;
 
-class User
+class City
 {
     private $id;
     private $name;

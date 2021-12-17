@@ -27,9 +27,9 @@ class InputCityDTO
         }
     }
 
-    public function toUser()
+    public function toCity()
     {
-        return new User($this->expose());
+        return new City($this->expose());
     }
 
     public function expose()

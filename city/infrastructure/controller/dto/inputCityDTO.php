@@ -2,11 +2,11 @@
 
 namespace weather\api\persistence;
 
-require('./user/domain/IUser.php');
+require('./city/domain/City.php');
 
 use weather\api\persistence\User;
 
-class InputUserDTO
+class InputCityDTO
 {
     private $id;
     private $name;

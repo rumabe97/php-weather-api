@@ -1,6 +1,21 @@
 <?php
 
 require('./user/infrastructure/controller/dto/InputUserDTO.php');
+
+use weather\api\persistence\InputUserDTO;
+
+require('./user/infrastructure/controller/dto/OutputUserDTO.php');
+
+use weather\api\persistence\OutuputUserDTO;
+
+require('./city/infrastructure/controller/dto/InputCityDTO.php');
+
+use weather\api\persistence\InputCityDTO;
+
+require('./city/infrastructure/controller/dto/OutputCityDTO.php');
+
+use weather\api\persistence\OutuputCityDTO;
+
 require('./user/infrastructure/controller/findUserController.php');
 
 use  weather\api\persistence\FindUserController;
@@ -15,24 +30,27 @@ use  weather\api\persistence\FindByIdUserController;
 
 require('./user/infrastructure/controller/UpdateUserController.php');
 
-use  weather\api\persistence\DeleteUserController;
+use weather\api\persistence\UpdateUserController;
 
 require('./user/infrastructure/controller/DeleteUserController.php');
-require('./user/infrastructure/controller/dto/OutputUserDTO.php');
 
-use weather\api\persistence\OutuputUserDTO;
-use weather\api\persistence\UpdateUserController;
-use weather\api\persistence\InputUserDTO;
+use  weather\api\persistence\DeleteUserController;
+
+require('./city/infrastructure/controller/FindByIdCityController.php');
+
+use  weather\api\persistence\FindByIdCityController;
+
 
 define("BASE_URL", "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
 define("HOME", $_SERVER["SCRIPT_NAME"]);
 
 const ROUTES = array(
-    '/login' => FindUserController::class,
+    '/findUser' => FindUserController::class,
     '/createUser' => CreateUserController::class,
     '/updateUser' => UpdateUserController::class,
     '/findByIdUser' => FindByIdUserController::class,
-    '/deleteUser' => DeleteUserController::class
+    '/deleteUser' => DeleteUserController::class,
+    '/findByIdCity' => FindByIdCityController::class,
 );
 
 $cleaned_path = str_replace(HOME, "", $_SERVER["REQUEST_URI"]);
@@ -47,10 +65,11 @@ function handleRequest($path, $params)
     $controller = new $controllerClass();
     $data = [];
 
-    if ($path === '/login') {
+    if ($path === '/findUser') {
         $user = new InputUserDTO($params);
         $data = $controller->findUser($user);
     }
+
     if ($path === '/createUser') {
         $user = new InputUserDTO($params);
         $data =  $controller->createUser($user);
@@ -65,5 +84,10 @@ function handleRequest($path, $params)
         $user = new InputUserDTO($params);
         $data = $controller->updateUser($params['id'], $user);
     }
+
+    if ($path === '/findByIdCity') {
+        $data =  $controller->findByIdCity($params['id']);
+    }
+
     echo $data;
 }

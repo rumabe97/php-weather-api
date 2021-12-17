@@ -2,7 +2,7 @@
 
 namespace weather\api\persistence;
 
-class OutuputUserDTO
+class OutuputCityDTO
 {
     private $id;
     private $name;

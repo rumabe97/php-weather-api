@@ -14,6 +14,10 @@ require('./user/infrastructure/controller/FindByIdUserController.php');
 use  weather\api\persistence\FindByIdUserController;
 
 require('./user/infrastructure/controller/UpdateUserController.php');
+
+use  weather\api\persistence\DeleteUserController;
+
+require('./user/infrastructure/controller/DeleteUserController.php');
 require('./user/infrastructure/controller/dto/OutputUserDTO.php');
 
 use weather\api\persistence\OutuputUserDTO;
@@ -28,6 +32,7 @@ const ROUTES = array(
     '/createUser' => CreateUserController::class,
     '/updateUser' => UpdateUserController::class,
     '/findByIdUser' => FindByIdUserController::class,
+    '/deleteUser' => DeleteUserController::class
 );
 
 $cleaned_path = str_replace(HOME, "", $_SERVER["REQUEST_URI"]);
@@ -52,6 +57,9 @@ function handleRequest($path, $params)
     }
     if ($path === '/findByIdUser') {
         $data =  $controller->findByIdUser($params['id']);
+    }
+    if ($path === '/deleteUser') {
+        $data =  $controller->deleteUser($params['id']);
     }
     if ($path === '/updateUser') {
         $user = new InputUserDTO($params);

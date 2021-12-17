@@ -4,5 +4,5 @@ namespace weather\api\persistence;
 
 interface FindByIdUserPersistence
 {
-    function findByIdUser($user);
+    function findByIdUser($id);
 }

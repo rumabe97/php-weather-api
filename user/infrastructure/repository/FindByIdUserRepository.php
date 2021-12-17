@@ -2,7 +2,7 @@
 
 namespace weather\api\persistence;
 
-require('./user/infrastructure/repository/port/findByIdUserPort.php');
+require('./user/infrastructure/repository/port/FindByIdUserPort.php');
 
 use weather\api\persistence\FindByIdUserPersistence;
 use PDO;

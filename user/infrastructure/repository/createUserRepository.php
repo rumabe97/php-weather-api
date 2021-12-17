@@ -20,12 +20,32 @@ class CreateUserRepository implements CreateUserPersistence
     {
         try {
 
-            $sql = "INSERT INTO mstr_user (name, surname, email, password, rol) VALUES ('{$user->getName()}', '{$user->getSurname()}',
-                                 '{$user->getEmail()}', '{$user->getPassword()}', '{$user->getRol()}')";
+            $sql = $this->getInsertString('mstr_user', $user);
             $this->db->query($sql);
             return true;
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    private function getInsertString($tableName, $values)
+    {
+        $keys = array_keys($values);
+        $values = array_values($values);
+        $stringKeys = $this->getStringFormat($keys, true);
+        $stringValues = $this->getStringFormat($values);
+
+        return "insert into {$tableName}({$stringKeys}) values ({$stringValues})";
+    }
+
+    private function getStringFormat($array, $iskey = false)
+    {
+        $result = '';
+        foreach ($array as $value) {
+            if (gettype($value) === 'string' && !$iskey) $value = "'" . $value . "'";
+
+            $result = $result .  $value . ",";
+        }
+        return rtrim($result, ",");
     }
 }

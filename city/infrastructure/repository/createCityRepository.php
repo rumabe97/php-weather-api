@@ -19,13 +19,33 @@ class CreateCityRepository implements CreateCityPersistence
     public function createCity($city)
     {
         try {
-            $sql = "INSERT INTO mstr_city (name,idActualWeather,country,idCoordinate) VALUES ('{$city->getName()}', '{$city->getIdActualWeather()}',
-                                 '{$city->getCountry()}', '{$city->getIdCoordinate()}')";
-                                 echo $sql;
+            $sql = $this->getInsertString('mstr_city', $city);
+            echo $sql;
             $this->db->query($sql);
             return true;
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    private function getInsertString($tableName, $values)
+    {
+        $keys = array_keys($values);
+        $values = array_values($values);
+        $stringKeys = $this->getStringFormat($keys, true);
+        $stringValues = $this->getStringFormat($values);
+
+        return "insert into {$tableName}({$stringKeys}) values ({$stringValues})";
+    }
+
+    private function getStringFormat($array, $iskey = false)
+    {
+        $result = '';
+        foreach ($array as $value) {
+            if (gettype($value) === 'string' && !$iskey) $value = "'" . $value . "'";
+
+            $result = $result .  $value . ",";
+        }
+        return rtrim($result, ",");
     }
 }

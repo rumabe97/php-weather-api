@@ -12,11 +12,11 @@ class DeleteUserController
 
     function __construct()
     {
-        $this->findByIdUserPersistence = new DeleteUserRepository();
+        $this->deleteUserPersistence = new DeleteUserRepository();
     }
 
     public function deleteUser($id)
     {
-        return $this->findByIdUserPersistence->deleteUser($id);
+        return $this->deleteUserPersistence->deleteUser($id);
     }
 }

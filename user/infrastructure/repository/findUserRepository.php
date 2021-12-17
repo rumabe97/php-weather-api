@@ -3,9 +3,7 @@
 namespace weather\api\persistence;
 
 require('./user/infrastructure/repository/port/findUserPort.php');
-require('./user/infrastructure/controller/dto/OutputUserDTO.php');
 
-use weather\api\persistence\OutuputUserDTO;
 use weather\api\persistence\FindUserPersistence;
 use PDO;
 
@@ -25,11 +23,13 @@ class FindUserRepository implements FindUserPersistence
 
         $user = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
+        $result = [];
         foreach ($user as $value) {
             $u = new OutuputUserDTO($value);
-            echo json_encode($u->expose());
-            return;
+            array_push($result, $u->expose());
         }
+        $data['users'] = $result;
+        return json_encode($data);
     }
 
     private function selectString($values)
@@ -44,6 +44,10 @@ class FindUserRepository implements FindUserPersistence
             if (gettype($value) === 'string') $value = "'" . $value . "'";
             $result = $result . "{$key}={$value}" . " and ";
         }
+        if ($result == 'where ') {
+            return '';
+        }
+
         return rtrim($result, "and ");
     }
 }

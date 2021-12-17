@@ -3,7 +3,6 @@
 namespace weather\api\persistence;
 
 require('./user/infrastructure/repository/port/UpdateUserPort.php');
-require('./user/infrastructure/controller/dto/OutputUserDTO.php');
 
 use weather\api\persistence\UpdateUserPersistence;
 use PDO;
@@ -22,6 +21,7 @@ class UpdateUserRepository implements UpdateUserPersistence
         try {
             $result = $this->updateString($user);
             $sql = "update mstr_user set {$result} where id={$id}";
+
             $this->db->query($sql);
             return true;
         } catch (\Exception $e) {

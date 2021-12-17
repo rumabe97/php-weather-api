@@ -21,7 +21,7 @@ class CreateUserRepository implements CreateUserPersistence
         try {
 
             $sql = "INSERT INTO mstr_user (name, surname, email, password, rol) VALUES ('{$user->getName()}', '{$user->getSurname()}',
-                                 '{$user->getEmail()}', '{$user->getPassword()}', '{$user->getRole()}')";
+                                 '{$user->getEmail()}', '{$user->getPassword()}', '{$user->getRol()}')";
             $this->db->query($sql);
             return true;
         } catch (\Exception $e) {

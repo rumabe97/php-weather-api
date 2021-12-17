@@ -9,9 +9,15 @@ require('./user/infrastructure/controller/createUserController.php');
 
 use  weather\api\persistence\CreateUserController;
 
-require('./user/infrastructure/controller/UpdateUserController.php');
+require('./user/infrastructure/controller/FindByIdUserController.php');
 
-use  weather\api\persistence\UpdateUserController;
+use  weather\api\persistence\FindByIdUserController;
+
+require('./user/infrastructure/controller/UpdateUserController.php');
+require('./user/infrastructure/controller/dto/OutputUserDTO.php');
+
+use weather\api\persistence\OutuputUserDTO;
+use weather\api\persistence\UpdateUserController;
 use weather\api\persistence\InputUserDTO;
 
 define("BASE_URL", "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
@@ -21,6 +27,7 @@ const ROUTES = array(
     '/login' => FindUserController::class,
     '/createUser' => CreateUserController::class,
     '/updateUser' => UpdateUserController::class,
+    '/findByIdUser' => FindByIdUserController::class,
 );
 
 $cleaned_path = str_replace(HOME, "", $_SERVER["REQUEST_URI"]);
@@ -33,16 +40,22 @@ function handleRequest($path, $params)
 {
     $controllerClass = ROUTES[$path];
     $controller = new $controllerClass();
+    $data = [];
+
     if ($path === '/login') {
         $user = new InputUserDTO($params);
-        return $controller->findUser($user);
+        $data = $controller->findUser($user);
     }
     if ($path === '/createUser') {
         $user = new InputUserDTO($params);
-        return $controller->createUser($user);
+        $data =  $controller->createUser($user);
     }
-    if ($path === '/createUser') {
+    if ($path === '/findByIdUser') {
+        $data =  $controller->findByIdUser($params['id']);
+    }
+    if ($path === '/updateUser') {
         $user = new InputUserDTO($params);
-        return $controller->updateUser($params['id'], $user);
+        $data = $controller->updateUser($params['id'], $user);
     }
+    echo $data;
 }

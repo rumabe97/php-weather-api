@@ -9,23 +9,22 @@ use weather\api\persistence\UpdateUserRepository;
 class UpdateUserUseCase
 {
     private $updateUserPersistence;
-    private $findUserPersistence;
+    private $findByIdUserPersistence;
 
     function __construct()
     {
         $this->updateUserPersistence = new UpdateUserRepository();
-        $this->findUserPersistence = new findUserRepository();
+        $this->findUserPersistence = new findByIdUserRepository();
     }
 
     public function updateUser($id, $user)
     {
-        $findUser = new User($id);
-        $newUser = $this->findUserPersistence->findUser($findUser);
-
-        if ($newUser) {
-            $currentUser = new User($newUser);
-            $currentUser->updateWith($user);
+        $newUser = $this->findUserPersistence->findByIdUser($id);
+        $currentUser = new User(json_decode($newUser, true));
+        if ($currentUser->getId()) {
+            $currentUser->updateWith($user->expose());
             $this->updateUserPersistence->updateUser($id, $currentUser);
+            return json_encode($currentUser->expose());
         }
     }
 }
